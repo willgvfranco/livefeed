@@ -59,6 +59,10 @@ logs:
 rebuild:
 	$(COMPOSE) up -d --build
 
+# Rebuild de um serviço específico
+rebuild-service:
+	$(COMPOSE) up -d --build $(service)
+
 # Acesso ao shell dentro do container backend
 shell:
 	$(COMPOSE) exec backend /bin/bash
