@@ -4,6 +4,7 @@ PYTHON = $(VENV_DIR)/bin/python
 PIP = $(VENV_DIR)/bin/pip
 PYTEST = $(VENV_DIR)/bin/pytest
 uvicorn = $(VENV_DIR)/bin/uvicorn
+COMPOSE=docker-compose
 
 # # Create virtual environment
 # $(VENV_DIR)/bin/activate: requirements.txt
@@ -36,3 +37,28 @@ clean:
 	find . -type d -name '__pycache__' -delete
 
 .PHONY: install test run clean
+
+
+# Rodar o Docker Compose em modo daemon
+up:
+	$(COMPOSE) up -d
+
+# Parar e remover os containers
+down:
+	$(COMPOSE) down
+
+# Verificar o status dos containers
+ps:
+	$(COMPOSE) ps
+
+# Visualizar os logs dos containers
+logs:
+	$(COMPOSE) logs -f
+
+# Rebuild dos containers
+rebuild:
+	$(COMPOSE) up -d --build
+
+# Acesso ao shell dentro do container backend
+shell:
+	$(COMPOSE) exec backend /bin/bash
